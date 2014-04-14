@@ -1,0 +1,42 @@
+package <XDtConfig:configParameterValue paramName="package"/>.bean;
+
+import java.io.Serializable;
+
+
+import <XDtConfig:configParameterValue paramName="package"/>.domain.*;
+
+
+public class <XDtXClass:className/>Modify implements Serializable{
+
+<XDtXField:forAllHeaderFields tagFilter="id, modify">
+	
+	<XDtXField:ifIsOfType type="java.util.Calendar,java.util.Date" condition="true">
+	@org.springframework.format.annotation.DateTimeFormat(iso=org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+	</XDtXField:ifIsOfType>	
+	private <XDtXField:fieldType/> <XDtXField:headerFieldName asFieldName="true"/>;
+</XDtXField:forAllHeaderFields>
+
+	public <XDtXClass:className/>Modify(){
+
+	<XDtXField:forAllHeaderFields tagFilter="modify">
+	<XDtXField:ifIsOfType type="java.util.List">
+			<XDtXField:headerFieldName asFieldName="true"/> =  (java.util.List<<XDtXField:fieldGenericType/>>)org.apache.commons.collections.list.LazyList.decorate(
+				new java.util.ArrayList<<XDtXField:fieldGenericType/>>(),org.apache.commons.collections.FactoryUtils.instantiateFactory(<XDtXField:fieldGenericType/>.class));
+	</XDtXField:ifIsOfType>	
+	</XDtXField:forAllHeaderFields>								
+	}					
+	
+	
+
+<XDtXField:forAllHeaderFields tagFilter="id, modify">
+	
+	public <XDtXField:fieldType/> get<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>(){
+		return <XDtXField:headerFieldName asFieldName="true"/>;
+	}
+
+	public void set<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>(<XDtXField:fieldType/> <XDtXField:headerFieldName asFieldName="true"/>){
+		this.<XDtXField:headerFieldName asFieldName="true"/>=<XDtXField:headerFieldName asFieldName="true"/>;
+	}
+
+</XDtXField:forAllHeaderFields>
+}

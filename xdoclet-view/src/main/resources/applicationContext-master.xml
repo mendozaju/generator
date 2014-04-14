@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<!-- Imports properties -->
+    <import resource="classpath:configuration/propertiesContext.xml" />
+   	<!-- configuration file for helper, between others. -->
+    <import resource="classpath:configuration/coreContext.xml" />
+    <!-- configuration file for Services -->
+    <import resource="classpath:configuration/serviceContext.xml" />
+    <!-- project Properties -->
+    <import resource="classpath:projectProperties/projectPropertiesContext.xml" /> 
+
+</beans>

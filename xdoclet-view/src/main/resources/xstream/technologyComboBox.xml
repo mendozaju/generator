@@ -1,0 +1,18 @@
+<map>
+	<entry>
+		<string>01</string>
+		<string>Spring</string>
+	</entry>
+	<!-- entry>
+		<string>02</string>
+		<string>JSF</string>
+	</entry>
+	<entry>
+		<string>03</string>
+		<string>Struts 1</string>
+	</entry>
+	<entry>
+		<string>04</string>
+		<string>Struts 2</string>
+	</entry -->
+</map>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="xdoclet app generator" default="generate" basedir=".">
+    
+	<path id="xdoclet.class.path">
+		<fileset dir="${basedir}/lib" includes="*.jar" />
+		<pathelement location="${basedir}/src/main/java"/>
+		<pathelement location="${basedir}/src/main/resources"/>
+	</path>
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+	  <classpath>
+	    <pathelement location="${basedir}/lib/ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+	<taskdef name="xdoclet" classname="xdoclet.DocletTask" classpathref="xdoclet.class.path"  />
+
+	<scriptdef language="javascript"  name="lower">
+			
+			<classpath>
+				<fileset dir="${basedir}/lib" includes="*.jar" />
+			</classpath>
+		    <attribute name="from" />
+			<attribute name="to" />
+			<![CDATA[
+				project.setProperty(
+					attributes.get("to"),
+					project.getProperty(attributes.get("from" )).toLowerCase());
+			]]>
+		</scriptdef>
+	
+	<property file="${basedir}/build.properties"/>
+	
+	<!-- PROPERTIES -->
+	<!--property name="srcFiles" value="${basedir}/example/input" /-->
+	<!--Fran I -->
+	<property name="srcFiles" value="C:\AppGenerator"/>
+	<!--Fran F -->
+	<property name="resourceFiles" value="${basedir}/resources" />
+	<!-- <property name="generatedAppDir" value="${basedir}/generatedApp/${artifactId}" /> -->
+	<property name="generatedAppDir" value="C:/workspace-consumos-latam/${artifactId}" />
+	<propertyregex property="packageBaseDir" input="${generatedAppDir}/src/main/java/${groupId}/${artifactId}"
+		regexp="\." replace="/" global="true" />
+	<property name="rootPackage" value="${groupId}.${artifactId}" />
+	
+	
+	<property name="domainsDir" value="${packageBaseDir}/domain" />
+	<property name="beansDir" value="${packageBaseDir}/bean" />
+	<property name="controllersDir" value="${packageBaseDir}/controller" />
+	<property name="servicesDir" value="${packageBaseDir}/service" />
+	<property name="servicesImplDir" value="${servicesDir}/impl" />
+	<property name="validatorsDir" value="${packageBaseDir}/validator" />
+	
+	<property name="resourcesDir" value="${generatedAppDir}/src/main/resources" />
+	<property name="webappDir" value="${generatedAppDir}/src/main/webapp" />
+	<property name="jspDir" value="${webappDir}/jsp" />
+	
+	<property name="xdtDir" value="${basedir}/xdt" />
+	
+	<target name="generate">
+		<delete dir="${generatedAppDir}" />
+		
+		<!-- DOMAINS -->
+		<mkdir dir="${domainsDir}"/>
+		<xdoclet destdir="${domainsDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}.java" templateFile="${xdtDir}/java/bean.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		
+		<!-- BEANS -->
+		<mkdir dir="${beansDir}"/>
+		<xdoclet destdir="${beansDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}Search.java" templateFile="${xdtDir}/java/beanSearch.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<xdoclet destdir="${beansDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}Id.java" templateFile="${xdtDir}/java/beanId.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<xdoclet destdir="${beansDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}Modify.java" templateFile="${xdtDir}/java/beanModify.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		
+		<!-- CONTROLLERS -->
+		<mkdir dir="${controllersDir}"/>
+		<xdoclet destdir="${controllersDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}Controller.java" templateFile="${xdtDir}/java/controller.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		
+		<!-- SERVICES -->
+		<mkdir dir="${servicesDir}"/>
+		<xdoclet destdir="${servicesDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="I{0}Service.java" templateFile="${xdtDir}/java/service.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<mkdir dir="${servicesImplDir}"/>
+		<xdoclet destdir="${servicesImplDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}Service.java" templateFile="${xdtDir}/java/serviceImpl.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		
+		<!-- VALIDATORS -->
+		<mkdir dir="${validatorsDir}"/>
+		<xdoclet destdir="${validatorsDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}Validator.java" templateFile="${xdtDir}/java/beanValidator.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<xdoclet destdir="${validatorsDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}SearchValidator.java" templateFile="${xdtDir}/java/beanSearchValidator.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<xdoclet destdir="${validatorsDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="{0}ModifyValidator.java" templateFile="${xdtDir}/java/beanModifyValidator.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		
+		<!-- RESOURCES -->
+		<mkdir dir="${resourcesDir}"/>
+		<xdoclet destdir="${resourcesDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="applicationContext.xml" templateFile="${xdtDir}/resources/applicationContext.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<xdoclet destdir="${resourcesDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="dispatchContext.xml" templateFile="${xdtDir}/resources/dispatchContext.xdt">
+				<configParam name="package" value="${rootPackage}"/>
+			</template>
+		</xdoclet>
+		<xdoclet destdir="${resourcesDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="messages.properties" templateFile="${xdtDir}/resources/messages.xdt" />
+		</xdoclet>
+		
+		<!-- WEBAPP -->
+		<mkdir dir="${jspDir}"/>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/search{0}.jsp" templateFile="${xdtDir}/webapp/search.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/list{0}.jsp" templateFile="${xdtDir}/webapp/list.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/detail{0}.jsp" templateFile="${xdtDir}/webapp/detail.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/modify{0}.jsp" templateFile="${xdtDir}/webapp/modify.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/modify{0}Ok.jsp" templateFile="${xdtDir}/webapp/modifyOk.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/delete{0}.jsp" templateFile="${xdtDir}/webapp/delete.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/delete{0}Ok.jsp" templateFile="${xdtDir}/webapp/deleteOk.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/create{0}.jsp" templateFile="${xdtDir}/webapp/create.xdt"/>
+		</xdoclet>
+		<xdoclet destdir="${jspDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/{0}/create{0}Ok.jsp" templateFile="${xdtDir}/webapp/createOk.xdt"/>
+		</xdoclet>
+		<for param="jspFolder">
+			<path>
+				<dirset dir="${jspDir}" includes="**/*"/>
+		  	</path>
+			<sequential>
+				<propertyregex override="yes" property="jspFolderBasename" input="@{jspFolder}" regexp=".*\\(.*)" select="\1" casesensitive="true" />
+				<lower from="jspFolderBasename" to="jspFolderLowerBasename"/>
+				<rename src="${jspDir}/${jspFolderBasename}" dest="${jspDir}/${jspFolderLowerBasename}" replace="true"/>
+			</sequential>
+		</for>
+		<xdoclet destdir="${webappDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java"/>
+			<template destinationFile="/index.jsp" templateFile="${xdtDir}/webapp/index.xdt"/>
+		</xdoclet>
+		
+		<!-- POM -->
+		<xdoclet destdir="${generatedAppDir}">
+			<fileset dir="${srcFiles}" includes="**/*.java" />
+			<template destinationFile="pom.xml" templateFile="${xdtDir}/pom.xdt">
+				<configParam name="groupId" value="${groupId}"/>
+				<configParam name="artifactId" value="${artifactId}"/>
+				<configParam name="version" value="${version}"/>
+			</template>
+		</xdoclet>
+		
+		<copy todir="${generatedAppDir}">
+			<fileset dir="${resourceFiles}"/>
+		</copy>
+		
+		<antcall target="maven">
+			<param name="project" value="${generatedAppDir}" />
+		</antcall>	
+		
+	</target>
+	
+	<target name="maven">
+		<exec dir="${project}" executable="cmd">
+			<arg value="/c" />
+			<arg value="mvn" />
+			<arg value="eclipse:clean" />
+			<arg value="eclipse:eclipse" />
+			<arg value="-Dmaven.test.skip=true" />
+			<arg value="-o" />
+		</exec>
+	</target>
+	
+</project>

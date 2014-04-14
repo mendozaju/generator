@@ -1,0 +1,25 @@
+package <XDtConfig:configParameterValue paramName="package"/>.service;
+
+import java.util.List;
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Id;
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Search;
+import <XDtConfig:configParameterValue paramName="package"/>.domain.<XDtXClass:className/>;
+
+public interface I<XDtXClass:className/>Service{
+
+	public List<<XDtXClass:className/>> search(<XDtXClass:className/>Search <XDtXClass:className lowerCase="true"/>Search);
+	
+	
+	public <XDtXClass:className/> find(<XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id);
+	
+	
+	public void create(<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>);
+	
+	
+	public void update(<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>);
+	
+	
+	public void delete(<XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id);
+	
+	
+}

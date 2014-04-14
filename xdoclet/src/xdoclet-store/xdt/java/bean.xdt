@@ -1,0 +1,38 @@
+package <XDtConfig:configParameterValue paramName="package"/>.domain;
+
+import java.io.Serializable;
+
+public class <XDtXClass:className/> <XDtXClass:ifHasSuperClass>extends <XDtXClass:superClassName/></XDtXClass:ifHasSuperClass> implements Serializable{
+
+<XDtXField:forAllFields>
+
+	<XDtXField:ifIsOfType type="java.util.Calendar,java.util.Date" condition="true">
+	@org.springframework.format.annotation.DateTimeFormat(iso=org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+	</XDtXField:ifIsOfType>	
+	private <XDtXField:fieldType/> <XDtXField:fieldName/>;
+
+	
+</XDtXField:forAllFields>
+
+
+	public <XDtXClass:className/>(){
+
+	<XDtXField:forAllFields>
+	<XDtXField:ifIsOfType type="java.util.List">
+			<XDtXField:fieldName/> =  (java.util.List<<XDtXField:fieldGenericType/>>)org.apache.commons.collections.list.LazyList.decorate(
+				new java.util.ArrayList<<XDtXField:fieldGenericType/>>(),org.apache.commons.collections.FactoryUtils.instantiateFactory(<XDtXField:fieldGenericType/>.class));
+	</XDtXField:ifIsOfType>	
+	</XDtXField:forAllFields>						
+	}				
+
+
+<XDtXField:forAllFields>
+	public <XDtXField:fieldType/> get<XDtXField:getCapitalizedFieldName/>(){
+		return <XDtXField:fieldName/>;
+	}
+
+	public void set<XDtXField:getCapitalizedFieldName/>(<XDtXField:fieldType/> <XDtXField:fieldName/>){
+		this.<XDtXField:fieldName/>=<XDtXField:fieldName/>;
+	}
+</XDtXField:forAllFields>
+}

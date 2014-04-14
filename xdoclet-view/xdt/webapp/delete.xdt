@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.6.2.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
+
+<form:form commandName="<XDtXClass:className lowerCase="true"/>Id" action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/processDelete.htm">
+	<XDtXField:forAllHeaderFields tagFilter="id">
+	<input type="hidden" id="<XDtXField:fieldName/>" name="<XDtXField:fieldName/>" />
+	</XDtXField:forAllHeaderFields>
+	<table class="table">
+		<tr><td colspan="2" class="tdtitle">
+			<spring:message code="<XDtXClass:className lowerCase="true"/>.title.delete"/>
+		</td></tr>
+		<XDtXField:forAllHeaderFields tagFilter="delete">
+		<tr>
+			<td>
+				<spring:message code="<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>"/>
+			</td>
+			<td>
+				${<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>}
+			</td>
+		</tr>
+		</XDtXField:forAllHeaderFields>		
+		<tr>
+			<td width="50%" class="tdtitle">
+				<input type="submit" class="groovybutton" style=""/>
+			</td>			
+			<td class="tdtitle">
+				<input class="groovybutton" id="return" type="submit" value="<spring:message code="goBack"/>" 
+					onclick="$('#<XDtXClass:className lowerCase="true"/>Id')[0].action='${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/paginate.htm'" />
+			</td>			
+		</tr>		
+	</table>
+	
+</form:form>
+
+<table style="margin-left:auto;margin-right:auto">
+	<tr>
+		<td>
+			<a href="${pageContext.request.contextPath}"><img height="50px" src="${pageContext.request.contextPath}/images/home.gif" alt="Home"></a>
+		</td>
+	</tr>		
+</table>

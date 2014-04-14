@@ -1,0 +1,76 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://code.google.com/p/jmesa" prefix="jmesa" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.6.2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jmesa.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.jmesa.js"></script>
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/jmesa.css" />
+ 
+<form:form action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/paginate.htm">
+	<table>
+		<tr><td>
+			<spring:message code="<XDtXClass:className lowerCase="true"/>.title.list"/>
+		</td></tr>
+		<tr><td>
+			<jmesa:tableModel id="tableModel" items="${<XDtXClass:className lowerCase="true"/>List}" var="bean">
+		        <jmesa:htmlTable>
+		            <jmesa:htmlRow>
+		            <XDtXField:forAllHeaderFields tagFilter="grid">
+		            	<jmesa:htmlColumn property="<XDtXField:headerFieldName/>" titleKey="<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>" sortable="false" filterable="false"/>
+		            </XDtXField:forAllHeaderFields>
+		            	<jmesa:htmlColumn property="<XDtXClass:className lowerCase="true"/>.action.detail" titleKey="<XDtXClass:className lowerCase="true"/>.action.detail" sortable="false" filterable="false">
+		            		<a href="#" onclick="<XDtXClass:className lowerCase="true"/>Detail(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id">'${bean.<XDtXField:headerFieldName/>}'</XDtXField:forAllHeaderFields>);"><spring:message code="<XDtXClass:className lowerCase="true"/>.action.detail"/></a>
+		            	</jmesa:htmlColumn>
+		            	<jmesa:htmlColumn property="<XDtXClass:className lowerCase="true"/>.action.modify" titleKey="<XDtXClass:className lowerCase="true"/>.action.modify" sortable="false" filterable="false">
+		            		<a href="#" onclick="modify<XDtXClass:className/>(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id">'${bean.<XDtXField:headerFieldName/>}'</XDtXField:forAllHeaderFields>);"><spring:message code="<XDtXClass:className lowerCase="true"/>.action.modify"/></a>
+		            	</jmesa:htmlColumn>
+		            	<jmesa:htmlColumn property="<XDtXClass:className lowerCase="true"/>.action.delete" titleKey="<XDtXClass:className lowerCase="true"/>.action.delete" sortable="false" filterable="false">
+		            		<a href="#" onclick="delete<XDtXClass:className/>(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id">'${bean.<XDtXField:headerFieldName/>}'</XDtXField:forAllHeaderFields>);"><spring:message code="<XDtXClass:className lowerCase="true"/>.action.delete"/></a>
+		            	</jmesa:htmlColumn>
+		            </jmesa:htmlRow>
+				</jmesa:htmlTable>
+			</jmesa:tableModel>
+		</td></tr>
+    </table>
+</form:form>
+
+<form:form id="<XDtXClass:className lowerCase="true"/>IdForm" commandName="search<XDtXClass:className/>Id">
+	<XDtXField:forAllHeaderFields tagFilter="id">
+	<input type="hidden" id="<XDtXField:headerFieldName asFieldName="true"/>" name="<XDtXField:headerFieldName asFieldName="true"/>" />
+	</XDtXField:forAllHeaderFields>
+</form:form>
+
+<script type="text/javascript">
+	function onInvokeAction(id, action) {
+	    setExportToLimit(id, '');
+	    createHiddenInputFieldsForLimitAndSubmit(id);
+	}
+	
+	function <XDtXClass:className lowerCase="true"/>Detail(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>){
+		setValues(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>);
+		$('#<XDtXClass:className lowerCase="true"/>IdForm')[0].action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/detail.htm";
+		$('#<XDtXClass:className lowerCase="true"/>IdForm')[0].submit();
+	}
+	
+	function modify<XDtXClass:className/>(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>){
+		setValues(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>);
+		$('#<XDtXClass:className lowerCase="true"/>IdForm')[0].action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/modify.htm";
+		$('#<XDtXClass:className lowerCase="true"/>IdForm')[0].submit();
+	}
+	
+	function delete<XDtXClass:className/>(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>){
+		setValues(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>);
+		$('#<XDtXClass:className lowerCase="true"/>IdForm')[0].action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/delete.htm";
+		$('#<XDtXClass:className lowerCase="true"/>IdForm')[0].submit();
+	}
+	
+	function setValues(<XDtXField:forAllHeaderFields commaSeparated="true" tagFilter="id"><XDtXField:headerFieldName asFieldName="true"/></XDtXField:forAllHeaderFields>){
+		<XDtXField:forAllHeaderFields tagFilter="id">
+			$('#<XDtXField:headerFieldName asFieldName="true"/>')[0].value=<XDtXField:headerFieldName asFieldName="true"/>;
+		</XDtXField:forAllHeaderFields>
+	}
+	
+</script>

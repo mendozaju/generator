@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<html>
+<head>
+	<style type="text/css">
+		.td {text-align:center;margin-left:auto;margin-right:auto;border-style: solid;border-collapse:collapse; border-width: 1px; border-color:#7DB1E3}
+		.tdtitle {text-align:center;padding: 0px;margin: 0px;color:#FFFFFF;background-color: #7DB1E3;border-style: solid;border-collapse:collapse; border-width: 1px; border-color:#7DB1E3}
+		.table{width:320px;border-collapse:collapse;border-style: solid;border-color:#7DB1E3;border-width: 1px;margin-left:auto;margin-right:auto}
+	</style>
+</head>
+<body>
+	<table class="table">
+		<tr>
+			<td class="tdtitle">
+			Classes
+			</td>
+		</tr>	
+		<XDtXClass:forAllClasses>
+		<tr>
+			<td class="td">
+				<a href="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/search.htm"><XDtXClass:className lowerCase="true"/></a><br/>
+			</td>
+		</tr>				
+		</XDtXClass:forAllClasses>
+	</table>		
+</body>
+</html>

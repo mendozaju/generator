@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
+
+<form:form id="formSearch" commandName="<XDtXClass:className lowerCase="true"/>Search" action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/list.htm">
+	<table class="table">
+		<tr><td class="tdtitle" colspan="2">
+			<spring:message code="<XDtXClass:className lowerCase="true"/>.title.search"/>
+		</td></tr>
+		<XDtXField:forAllHeaderFields tagFilter="search">
+		<tr>
+			<td width="50%">
+				<spring:message code="<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>"/>
+			</td>
+			<td>
+				<form:input path="<XDtXField:headerFieldName asFieldName="true"/>"/>
+				<form:errors path="<XDtXField:headerFieldName asFieldName="true"/>" cssClass="error" />
+			</td>
+		</tr>
+		</XDtXField:forAllHeaderFields>
+		<tr>
+			<td colspan="2" class="tdtitle">
+				<input type="submit" value="<spring:message code="submit"/>" class="groovybutton" style=""/>
+			</td>
+		</tr>
+	</table>
+</form:form>
+
+<form:form action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/create.htm">
+	<table class="table">
+		<tr><td class="tdtitle">
+			<spring:message code="<XDtXClass:className lowerCase="true"/>.title.create"/>
+		</td></tr>
+		<tr>
+			<td class="tdtitle">
+				<input type="submit" value="<spring:message code="submit"/>" class="groovybutton" style=""/>
+			</td>
+		</tr>
+	</table>
+</form:form>
+
+<table style="margin-left:auto;margin-right:auto">
+	<tr>
+		<td>
+			<a href="${pageContext.request.contextPath}"><img height="50px" src="${pageContext.request.contextPath}/images/home.gif" alt="Home"></a>
+		</td>
+	</tr>		
+</table>
+

@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<html>
+<head>
+</head>
+<body>
+<XDtXClass:forAllClasses>
+	<a href="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/search.htm"><XDtXClass:className lowerCase="true"/> search</a><br/>
+</XDtXClass:forAllClasses>
+</body>
+</html>

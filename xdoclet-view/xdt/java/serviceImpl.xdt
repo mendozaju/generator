@@ -1,0 +1,53 @@
+package <XDtConfig:configParameterValue paramName="package"/>.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Id;
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Search;
+import <XDtConfig:configParameterValue paramName="package"/>.domain.<XDtXClass:className/>;
+<XDtXEntity:forAllHeaderEntityTypes>import <XDtConfig:configParameterValue paramName="package"/>.domain.<XDtXClass:className/>;</XDtXEntity:forAllHeaderEntityTypes>
+import <XDtConfig:configParameterValue paramName="package"/>.service.I<XDtXClass:className/>Service;
+
+
+public class <XDtXClass:className/>Service implements I<XDtXClass:className/>Service{
+
+	public List<<XDtXClass:className/>> search(<XDtXClass:className/>Search <XDtXClass:className lowerCase="true"/>Search){
+		List<<XDtXClass:className/>> list=new ArrayList<<XDtXClass:className/>>();
+		for(int i=0; i<10; i++){
+			list.add(generate<XDtXClass:className/>(i));
+		}
+		return list;
+	}
+	
+	public <XDtXClass:className/> find(<XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id){
+		return generate<XDtXClass:className/>(0);
+	}
+	
+	private <XDtXClass:className/> generate<XDtXClass:className/>(int cont){
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=new <XDtXClass:className/>();
+		<XDtXEntity:forAllHeaderEntities>
+		
+		<XDtXClass:className lowerCase="true"/><XDtXEntity:forAllHeaderEntitiesFields><XDtXEntity:ifIsLastEntity>.set<XDtXField:getCapitalizedFieldName/>(new <XDtXField:fieldType/>());</XDtXEntity:ifIsLastEntity><XDtXEntity:ifIsLastEntity condition="false">.get<XDtXField:getCapitalizedFieldName/>()</XDtXEntity:ifIsLastEntity></XDtXEntity:forAllHeaderEntitiesFields>
+		
+		</XDtXEntity:forAllHeaderEntities>
+		return <XDtXClass:className lowerCase="true"/>;
+	}
+	
+	
+	public void create(<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>){
+		// TODO
+	}
+	
+	
+	public void update(<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>){
+		// TODO
+	}
+	
+	
+	public void delete(<XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id){
+		// TODO
+	}
+	
+	
+}

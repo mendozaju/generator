@@ -1,0 +1,8 @@
+<project default="copy-resources">
+  <target name="init"/>
+  <target name="copy-resources" depends="init">
+    <copy todir="target/classes/xdoclet-store" filtering="false">
+      <fileset dir="src/xdoclet-store" includes="build.xml|build.properties|xdt/**/*.xdt|lib/*.jar|resources/**.*" excludes="**/*.java"/>
+    </copy>
+  </target>
+</project>

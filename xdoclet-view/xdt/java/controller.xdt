@@ -1,0 +1,293 @@
+package <XDtConfig:configParameterValue paramName="package"/>.controller;
+
+import java.util.Collection;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.apache.log4j.Logger;
+import org.jmesa.limit.Limit;
+import org.jmesa.model.PageItems;
+import org.jmesa.model.TableModelUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Id;
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Modify;
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Search;
+import <XDtConfig:configParameterValue paramName="package"/>.domain.<XDtXClass:className/>;
+import <XDtConfig:configParameterValue paramName="package"/>.service.I<XDtXClass:className/>Service;
+import <XDtConfig:configParameterValue paramName="package"/>.validator.<XDtXClass:className/>Validator;
+import <XDtConfig:configParameterValue paramName="package"/>.validator.<XDtXClass:className/>ModifyValidator;
+import <XDtConfig:configParameterValue paramName="package"/>.validator.<XDtXClass:className/>SearchValidator;
+
+@Controller
+public class <XDtXClass:className/>Controller {
+
+	private static final Logger LOG = Logger.getLogger(<XDtXClass:className/>Controller.class);
+	
+	private static final String TABLE_MODEL="tableModel";
+	private static final String GRID_LIST_TOKEN="gridListToken";
+	
+	//views
+	private static final String SEARCH_VIEW="<XDtXClass:className lowerCase="true"/>/search<XDtXClass:className/>";
+	private static final String CREATE_VIEW="<XDtXClass:className lowerCase="true"/>/create<XDtXClass:className/>";
+	private static final String CREATE_OK_VIEW="<XDtXClass:className lowerCase="true"/>/create<XDtXClass:className/>Ok";
+	private static final String LIST_VIEW="<XDtXClass:className lowerCase="true"/>/list<XDtXClass:className/>";
+	private static final String DETAIL_VIEW="<XDtXClass:className lowerCase="true"/>/detail<XDtXClass:className/>";
+	private static final String MODIFY_VIEW="<XDtXClass:className lowerCase="true"/>/modify<XDtXClass:className/>";
+	private static final String MODIFY_OK_VIEW="<XDtXClass:className lowerCase="true"/>/modify<XDtXClass:className/>Ok";
+	private static final String DELETE_VIEW="<XDtXClass:className lowerCase="true"/>/delete<XDtXClass:className/>";
+	private static final String DELETE_OK_VIEW="<XDtXClass:className lowerCase="true"/>/delete<XDtXClass:className/>Ok";
+	private static final String ERROR_VIEW="error";
+	
+	//commands
+	private static final String SEARCH_COMMAND="<XDtXClass:className lowerCase="true"/>Search";
+	private static final String LIST_COMMAND="<XDtXClass:className lowerCase="true"/>List";
+	private static final String OBJECT_COMMAND="<XDtXClass:className lowerCase="true"/>";
+
+	<XDtXField:forAllHeaderFields tagFilter="modify">
+	<XDtXField:ifIsOfType type="java.util.List" condition="true">
+	<XDtXField:ifIsCustomType condition="true">
+	
+	private static final String LIST_<XDtXField:fieldTagValueCustom tagName="genericType" upperCase="true"/>_COMMAND="<XDtXField:fieldTagValueCustom tagName="genericType" lowerCase="true"/>List";
+
+	</XDtXField:ifIsCustomType>		
+	</XDtXField:ifIsOfType>
+	</XDtXField:forAllHeaderFields>
+
+	//services
+	@Autowired
+	private I<XDtXClass:className/>Service <XDtXClass:className lowerCase="true"/>Service;
+	
+
+	<XDtXField:forAllHeaderFields tagFilter="modify">
+	<XDtXField:ifIsOfType type="java.util.List" condition="true">
+	<XDtXField:ifIsCustomType condition="true">
+	@Autowired
+	private <XDtConfig:configParameterValue paramName="package"/>.service.I<XDtXField:fieldTagValueCustom tagName="genericType"/>Service <XDtXField:fieldTagValueCustom tagName="genericType" lowerCase="true"/>Service;
+		
+	</XDtXField:ifIsCustomType>		
+	</XDtXField:ifIsOfType>
+	</XDtXField:forAllHeaderFields>
+	
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) throws Exception {
+		if(binder.getTarget() instanceof <XDtXClass:className/>Search){
+			binder.setValidator(new <XDtXClass:className/>SearchValidator());
+		}else{
+			if(binder.getTarget() instanceof <XDtXClass:className/>Modify){
+				binder.setValidator(new <XDtXClass:className/>ModifyValidator());
+			}else{
+				if(binder.getTarget() instanceof <XDtXClass:className/>){
+					binder.setValidator(new <XDtXClass:className/>Validator());
+				}
+			}
+		}
+	}
+	
+
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException(Exception e, HttpServletRequest request) {
+		LOG.error(e.getMessage(), e);
+		return new ModelAndView(ERROR_VIEW);
+	}
+	
+
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/search")
+	public ModelAndView search() {
+		<XDtXClass:className/>Search <XDtXClass:className lowerCase="true"/>Search=new <XDtXClass:className/>Search();
+		
+		ModelAndView mv=new ModelAndView(SEARCH_VIEW);
+		mv.addObject(SEARCH_COMMAND, <XDtXClass:className lowerCase="true"/>Search);
+		return mv;
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/create")
+	public ModelAndView create() {
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=new <XDtXClass:className/>();
+		
+		ModelAndView mv=new ModelAndView(CREATE_VIEW);
+		mv.addObject(OBJECT_COMMAND, <XDtXClass:className lowerCase="true"/>);
+		
+		<XDtXField:forAllHeaderFields tagFilter="modify">
+		<XDtXField:ifIsOfType type="java.util.List" condition="true">
+		<XDtXField:ifIsCustomType condition="true">
+		
+		mv.addObject(LIST_<XDtXField:fieldTagValueCustom tagName="genericType" upperCase="true"/>_COMMAND, <XDtXField:fieldTagValueCustom tagName="genericType" lowerCase="true"/>Service.search(new <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXField:fieldTagValueCustom tagName="genericType"/>Search()));
+			
+		</XDtXField:ifIsCustomType>		
+		</XDtXField:ifIsOfType>
+		</XDtXField:forAllHeaderFields>
+		
+		return mv;
+	}
+		
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/processCreate")
+	public ModelAndView processCreate(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>") @Valid <XDtXClass:className/> <XDtXClass:className lowerCase="true"/>, 
+			BindingResult result) throws Exception{
+		if(result.hasErrors()){
+			return create();
+		}
+		<XDtXClass:className lowerCase="true"/>Service.create(<XDtXClass:className lowerCase="true"/>);
+		ModelAndView mv=new ModelAndView(CREATE_OK_VIEW);
+		return mv;
+	}
+	
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/list")
+	public ModelAndView list(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>Search") @Valid <XDtXClass:className/>Search <XDtXClass:className lowerCase="true"/>Search, 
+			BindingResult result) throws Exception{
+		
+		if(result.hasErrors()){
+			ModelAndView mv=new ModelAndView(SEARCH_VIEW);
+			mv.addObject(SEARCH_COMMAND, <XDtXClass:className lowerCase="true"/>Search);
+			return mv;
+		}
+		/**
+		 * TODO: In case of a service with pagination support call the service in the getGridItems implementations
+		 * and avoid the use of the session
+		 */
+		List<<XDtXClass:className/>> <XDtXClass:className lowerCase="true"/>List=<XDtXClass:className lowerCase="true"/>Service.search(<XDtXClass:className lowerCase="true"/>Search);
+		request.getSession().setAttribute(GRID_LIST_TOKEN, <XDtXClass:className lowerCase="true"/>List);
+		Collection<<XDtXClass:className/>> gridItems=getGridItems(request);
+		
+		
+		ModelAndView mv=new ModelAndView(LIST_VIEW);
+		mv.addObject(SEARCH_COMMAND, <XDtXClass:className lowerCase="true"/>Search);
+		mv.addObject(LIST_COMMAND, gridItems);
+		return mv;
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/paginate")
+	public ModelAndView paginate(HttpServletRequest request) {	
+		if(request.getSession().getAttribute(GRID_LIST_TOKEN)==null){
+			return search();
+		}
+		Collection<<XDtXClass:className/>> gridItems=getGridItems(request);
+		ModelAndView mv=new ModelAndView(LIST_VIEW);
+		mv.addObject(LIST_COMMAND, gridItems);
+		return mv;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Collection<<XDtXClass:className/>> getGridItems(final HttpServletRequest request){
+		return (Collection<<XDtXClass:className/>>)TableModelUtils.getItems(TABLE_MODEL, request, new PageItems() {
+			public int getTotalRows(Limit limit) {
+				//TODO: reimplement in case of a service with pagination support
+				List<<XDtXClass:className/>> <XDtXClass:className lowerCase="true"/>List=(List<<XDtXClass:className/>>) request.getSession().getAttribute(GRID_LIST_TOKEN);
+				return <XDtXClass:className lowerCase="true"/>List.size();
+			}
+			public Collection<<XDtXClass:className/>> getItems(Limit limit) {
+				int rowStart = limit.getRowSelect().getRowStart();
+				int rowEnd = limit.getRowSelect().getRowEnd();
+				//TODO: reimplement in case of a service with pagination support
+				List<<XDtXClass:className/>> <XDtXClass:className lowerCase="true"/>List=(List<<XDtXClass:className/>>) request.getSession().getAttribute(GRID_LIST_TOKEN);
+				return <XDtXClass:className lowerCase="true"/>List.subList(rowStart, rowEnd);
+			}
+		});
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/detail")
+	public ModelAndView detail(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>Id") <XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id, 
+			BindingResult result) throws Exception{
+		if(result.hasErrors()){
+			return search();
+		}
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=<XDtXClass:className lowerCase="true"/>Service.find(<XDtXClass:className lowerCase="true"/>Id);
+		ModelAndView mv=new ModelAndView(DETAIL_VIEW);
+		mv.addObject(OBJECT_COMMAND, <XDtXClass:className lowerCase="true"/>);
+		return mv;
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/modify")
+	public ModelAndView modify(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>Id") <XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id, 
+			BindingResult result) throws Exception{
+		if(result.hasErrors()){
+			return search();
+		}
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=<XDtXClass:className lowerCase="true"/>Service.find(<XDtXClass:className lowerCase="true"/>Id);
+		ModelAndView mv=new ModelAndView(MODIFY_VIEW);
+		mv.addObject(OBJECT_COMMAND, <XDtXClass:className lowerCase="true"/>);
+		
+		
+		<XDtXField:forAllHeaderFields tagFilter="modify">
+		<XDtXField:ifIsOfType type="java.util.List" condition="true">
+		<XDtXField:ifIsCustomType condition="true">
+		
+		mv.addObject(LIST_<XDtXField:fieldTagValueCustom tagName="genericType" upperCase="true"/>_COMMAND, <XDtXField:fieldTagValueCustom tagName="genericType" lowerCase="true"/>Service.search(new <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXField:fieldTagValueCustom tagName="genericType"/>Search()));
+			
+		</XDtXField:ifIsCustomType>		
+		</XDtXField:ifIsOfType>
+		</XDtXField:forAllHeaderFields>
+		
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/processModify")
+	public ModelAndView processModify(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>") @Valid <XDtXClass:className/>Modify <XDtXClass:className lowerCase="true"/>Modify, 
+			BindingResult result) throws Exception{
+			
+		<XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id=new <XDtXClass:className/>Id();
+		<XDtXField:forAllHeaderFields tagFilter="id">
+		<XDtXField:headerRootClassName lowerCase="true"/>Id.set<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>(<XDtXField:headerRootClassName lowerCase="true"/>Modify.get<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>());
+		</XDtXField:forAllHeaderFields>
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=<XDtXClass:className lowerCase="true"/>Service.find(<XDtXClass:className lowerCase="true"/>Id);
+		
+		
+		if(result.hasErrors()){
+			ModelAndView mv=new ModelAndView(MODIFY_VIEW);
+			mv.addObject(OBJECT_COMMAND, <XDtXClass:className lowerCase="true"/>);
+			return mv;
+		}
+		
+		<XDtXField:forAllHeaderFields tagFilter="modify">
+		<XDtXField:headerRootClassName lowerCase="true"/><XDtXField:forAllHeaderFieldsSubFields><XDtXField:ifIsLastSubfield>.set<XDtXField:headerSubfieldName capitalize="true"/>(<XDtXField:headerRootClassName lowerCase="true"/>Modify.get<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>());</XDtXField:ifIsLastSubfield><XDtXField:ifIsLastSubfield condition="false">.get<XDtXField:headerSubfieldName capitalize="true"/>()</XDtXField:ifIsLastSubfield></XDtXField:forAllHeaderFieldsSubFields></XDtXField:forAllHeaderFields>		
+
+		<XDtXClass:className lowerCase="true"/>Service.update(<XDtXClass:className lowerCase="true"/>);
+		
+		
+		ModelAndView mv=new ModelAndView(MODIFY_OK_VIEW);
+		return mv;
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/delete")
+	public ModelAndView delete(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>Id") <XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id, 
+			BindingResult result) throws Exception{
+		if(result.hasErrors()){
+			return search();
+		}
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=<XDtXClass:className lowerCase="true"/>Service.find(<XDtXClass:className lowerCase="true"/>Id);
+		ModelAndView mv=new ModelAndView(DELETE_VIEW);
+		mv.addObject(OBJECT_COMMAND, <XDtXClass:className lowerCase="true"/>);
+		return mv;
+	}
+	
+	@RequestMapping("/<XDtXClass:className lowerCase="true"/>/processDelete")
+	public ModelAndView processDelete(HttpServletRequest request, @ModelAttribute("<XDtXClass:className lowerCase="true"/>Id") <XDtXClass:className/>Id <XDtXClass:className lowerCase="true"/>Id, 
+			BindingResult result) throws Exception{
+		if(result.hasErrors()){
+			ModelAndView mv=new ModelAndView(DELETE_VIEW);
+			<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=<XDtXClass:className lowerCase="true"/>Service.find(<XDtXClass:className lowerCase="true"/>Id);
+			mv.addObject(OBJECT_COMMAND, <XDtXClass:className lowerCase="true"/>);
+			return mv;
+		}
+		<XDtXClass:className lowerCase="true"/>Service.delete(<XDtXClass:className lowerCase="true"/>Id);
+		ModelAndView mv=new ModelAndView(DELETE_OK_VIEW);
+		return mv;
+	}
+	
+	
+}

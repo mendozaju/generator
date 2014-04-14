@@ -1,0 +1,28 @@
+goBack=Go Back
+submit=Submit
+
+<XDtXClass:forAllClasses>
+#<XDtXClass:className/>
+
+<XDtXClass:className lowerCase="true"/>.title=<XDtXClass:className/>
+<XDtXClass:className lowerCase="true"/>.title.search=<XDtXClass:className/> Search
+<XDtXClass:className lowerCase="true"/>.title.list=<XDtXClass:className/> List
+<XDtXClass:className lowerCase="true"/>.title.detail=<XDtXClass:className/> Detail
+<XDtXClass:className lowerCase="true"/>.title.modify=Modify <XDtXClass:className/> 
+<XDtXClass:className lowerCase="true"/>.title.modifyOk=Modify <XDtXClass:className/> OK
+<XDtXClass:className lowerCase="true"/>.title.delete=Delete <XDtXClass:className/>
+<XDtXClass:className lowerCase="true"/>.title.deleteOk=Delete <XDtXClass:className/> OK
+<XDtXClass:className lowerCase="true"/>.title.create=Create <XDtXClass:className/>
+<XDtXClass:className lowerCase="true"/>.title.createOk=Create <XDtXClass:className/> OK
+
+<XDtXClass:className lowerCase="true"/>.action.create=Create
+<XDtXClass:className lowerCase="true"/>.action.detail=Detail
+<XDtXClass:className lowerCase="true"/>.action.modify=Modify
+<XDtXClass:className lowerCase="true"/>.action.delete=Delete
+
+<XDtXField:forAllHeaderFields>
+<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>=<XDtXField:headerFieldName spaced="true"/> </XDtXField:forAllHeaderFields>
+
+
+</XDtXClass:forAllClasses>
+	

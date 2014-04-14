@@ -1,0 +1,29 @@
+package <XDtConfig:configParameterValue paramName="package"/>.bean;
+
+import java.io.Serializable;
+
+import <XDtConfig:configParameterValue paramName="package"/>.domain.*;
+
+<XDtXField:forAllFields>
+<XDtXField:ifIsOfType type="Date" condition="true">
+import java.util.Date;
+</XDtXField:ifIsOfType>	
+</XDtXField:forAllFields>
+
+public class <XDtXClass:className/>Id implements Serializable{
+
+<XDtXField:forAllHeaderFields tagFilter="id">
+	private <XDtXField:fieldType/> <XDtXField:headerFieldName asFieldName="true"/>;
+</XDtXField:forAllHeaderFields>
+
+<XDtXField:forAllHeaderFields tagFilter="id">
+	public <XDtXField:fieldType/> get<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>(){
+		return <XDtXField:headerFieldName asFieldName="true"/>;
+	}
+
+	public void set<XDtXField:headerFieldName asFieldName="true" capitalize="true"/>(<XDtXField:fieldType/> <XDtXField:headerFieldName asFieldName="true"/>){
+		this.<XDtXField:headerFieldName asFieldName="true"/>=<XDtXField:headerFieldName asFieldName="true"/>;
+	}
+
+</XDtXField:forAllHeaderFields>
+}

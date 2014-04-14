@@ -1,0 +1,19 @@
+package <XDtConfig:configParameterValue paramName="package"/>.validator;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+import <XDtConfig:configParameterValue paramName="package"/>.bean.<XDtXClass:className/>Search;
+
+public class <XDtXClass:className/>SearchValidator implements Validator {
+
+	public boolean supports(Class<?> clazz) {
+		return <XDtXClass:className/>Search.class.isAssignableFrom(clazz);
+	}
+
+	public void validate(Object target, Errors errors) {
+		<XDtXClass:className/>Search <XDtXClass:className lowerCase="true"/>Search=(<XDtXClass:className/>Search) target;
+		//TODO
+	}
+	
+}

@@ -1,0 +1,19 @@
+package <XDtConfig:configParameterValue paramName="package"/>.validator;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+import <XDtConfig:configParameterValue paramName="package"/>.domain.<XDtXClass:className/>;
+
+public class <XDtXClass:className/>Validator implements Validator {
+
+	public boolean supports(Class<?> clazz) {
+		return <XDtXClass:className/>.class.isAssignableFrom(clazz);
+	}
+
+	public void validate(Object target, Errors errors) {
+		<XDtXClass:className/> <XDtXClass:className lowerCase="true"/>=(<XDtXClass:className/>) target;
+		//TODO
+	}
+	
+}

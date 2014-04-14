@@ -1,0 +1,250 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.6.2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/eComboBox.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
+
+<XDtXField:forAllHeaderFields tagFilter="modify">
+
+	<XDtXField:ifIsOfType type="java.util.List" condition="true">
+
+	<script type="text/javascript">
+		
+		<XDtXField:ifIsCustomType condition="true">
+			
+		function addElementNewSelect<XDtXField:headerFieldName capitalize="true"/>(){
+
+			var sameElements = false;
+			
+			if($("#combo<XDtXField:headerFieldName capitalize="true"/> :selected")[0] != null){
+				$("#newSelect<XDtXField:headerFieldName capitalize="true"/> option").each(function (index){
+					if($(this).val()==$("#combo<XDtXField:headerFieldName capitalize="true"/> :selected").val()){
+						sameElements = true;
+						return false;
+					}
+				});
+				
+				if(sameElements){
+					return false;
+				}
+				
+			}else{
+				return false;
+			}
+			
+			var input = $(document.createElement('input'));
+			input.attr('type','hidden');
+			input.attr('name', '<XDtXField:headerFieldName/>[' +$("#newSelect<XDtXField:headerFieldName capitalize="true"/>")[0].length +'].<XDtXField:getIdCustomType/>');
+			input.attr('id','hidden' + $("#newSelect<XDtXField:headerFieldName capitalize="true"/>")[0].length);
+			input.attr('value',$("#combo<XDtXField:headerFieldName capitalize="true"/> :selected")[0].value);
+			input.appendTo("#hiddenInputs<XDtXField:headerFieldName/>");
+			
+			var option = $(document.createElement('option'));
+			option[0].innerHTML = $("#combo<XDtXField:headerFieldName capitalize="true"/> :selected")[0].text;
+			option.attr('value', $("#combo<XDtXField:headerFieldName capitalize="true"/> :selected")[0].value);
+			option.attr('name', '<XDtXField:headerFieldName/>[' + $("#newSelect<XDtXField:headerFieldName capitalize="true"/>")[0].length +'].<XDtXField:getIdCustomType/>' );
+			option.appendTo("#newSelect<XDtXField:headerFieldName capitalize="true"/>");
+
+		}
+		
+		
+		function removeElemenNewSelect<XDtXField:headerFieldName capitalize="true"/>(){
+		
+			if($("#newSelect<XDtXField:headerFieldName capitalize="true"/>")[0].length !=0){
+					$('#hidden'+$("#newSelect<XDtXField:headerFieldName capitalize="true"/> :selected")[0].index).remove();
+					$("#newSelect<XDtXField:headerFieldName capitalize="true"/> :selected").remove();	
+			}
+			 
+		}
+	
+		</XDtXField:ifIsCustomType>
+		
+		<XDtXField:ifIsCustomType condition="false">
+		
+			$("#combo<XDtXField:headerFieldName capitalize="true"/>").eComboBox({
+				'allowNewElements' : false,		
+				'editableElements' : true		
+			});
+		
+		</XDtXField:ifIsCustomType>
+	
+	</script>
+
+	</XDtXField:ifIsOfType>
+	
+</XDtXField:forAllHeaderFields>
+
+	<script type="text/javascript">
+	    function submitForm(){
+			
+			
+			<XDtXField:forAllHeaderFields tagFilter="modify">
+			<XDtXField:ifIsOfType type="java.util.List" condition="true">
+			<XDtXField:ifIsCustomType condition="false">
+			
+			var input<XDtXField:headerFieldName capitalize="true"/>;
+			if($("#combo<XDtXField:headerFieldName capitalize="true"/>")[0].length != 0){
+				for(var i = 0 ; i< $("#combo<XDtXField:headerFieldName capitalize="true"/>")[0].length ; i++){
+
+					input<XDtXField:headerFieldName capitalize="true"/> = $(document.createElement('input'));
+					input<XDtXField:headerFieldName capitalize="true"/>.attr('type','hidden');
+					input<XDtXField:headerFieldName capitalize="true"/>.attr('name', '<XDtXField:headerFieldName/>[' + i +']');
+					input<XDtXField:headerFieldName capitalize="true"/>.attr('id','hidden<XDtXField:headerFieldName capitalize="true"/>' + i);
+					input<XDtXField:headerFieldName capitalize="true"/>.attr('value',$("#combo<XDtXField:headerFieldName capitalize="true"/>")[0][i].label);
+					input<XDtXField:headerFieldName capitalize="true"/>.appendTo("#hiddenInputs<XDtXField:headerFieldName/>");
+				
+				}
+			}
+	
+			</XDtXField:ifIsCustomType>
+			</XDtXField:ifIsOfType>		
+			</XDtXField:forAllHeaderFields>
+			
+			$("#<XDtXClass:className lowerCase="true"/>").submit();
+			
+		}
+	</script>
+
+
+
+
+<form:form commandName="<XDtXClass:className lowerCase="true"/>" action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/processModify.htm">
+	<XDtXField:forAllHeaderFields tagFilter="id">
+	<input type="hidden" id="<XDtXField:headerFieldName asFieldName="true"/>" name="<XDtXField:headerFieldName asFieldName="true"/>" />
+	</XDtXField:forAllHeaderFields>
+	
+	<XDtXField:forAllHeaderFields tagFilter="modify">
+	<XDtXField:ifIsOfType type="java.util.List" condition="true">
+	<div id="hiddenInputs<XDtXField:headerFieldName/>"></div>
+	</XDtXField:ifIsOfType>
+	</XDtXField:forAllHeaderFields>
+	
+	<table class="table">
+		<tr><td class="tdtitle" colspan="2">
+			<spring:message code="<XDtXClass:className lowerCase="true"/>.title.modify"/>
+		</td></tr>
+		<XDtXField:forAllHeaderFields tagFilter="modify">
+		
+		<XDtXField:ifIsOfType type="java.util.List" condition="false">
+		<tr>
+			<td>
+				<spring:message code="<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>"/>
+			</td>
+			<td>
+				<form:input path="<XDtXField:headerFieldName/>"/>
+				<form:errors path="<XDtXField:headerFieldName/>" cssClass="error" />
+			</td>
+		</tr>
+		</XDtXField:ifIsOfType>
+		
+		<XDtXField:ifIsOfType type="java.util.List" condition="true">
+		
+			<XDtXField:ifIsCustomType condition="true">
+			<tr>
+				<td>
+					<spring:message code="<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>"/>			
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td>								
+								<select id="combo<XDtXField:headerFieldName capitalize="true"/>">
+									<c:forEach items="${<XDtXField:fieldTagValueCustom tagName="genericType" lowerCase="true"/>List}" var="<XDtXField:headerFieldName/>"  >
+										<option value="<c:out value='${<XDtXField:headerFieldName/>.<XDtXField:getIdCustomType/>}'/>">
+											<c:out value="${<XDtXField:headerFieldName/>.<XDtXField:getFieldViewCustomType/>}"  />
+										</option>
+									</c:forEach>
+								</select>			
+							</td>
+							<td>
+								<select id="newSelect<XDtXField:headerFieldName capitalize="true"/>" >
+									<c:forEach items="${<XDtXClass:className lowerCase="true"/>.<XDtXField:headerFieldName/>}" var="<XDtXField:headerFieldName/>"  >
+										<option value="<c:out value='${<XDtXField:headerFieldName/>.<XDtXField:getIdCustomType/>}'/>">
+											<c:out value="${<XDtXField:headerFieldName/>.<XDtXField:getFieldViewCustomType/>}"  />
+										</option>
+									</c:forEach>
+								</select>	
+							</td>
+						</tr>	
+					</table>
+				</td>		
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<table>
+						<tr>
+							<td>
+								<input type="button" onclick="addElementNewSelect<XDtXField:headerFieldName capitalize="true"/>()" value=">>"/>
+							</td>
+							<td>
+								<input type="button" onclick="removeElemenNewSelect<XDtXField:headerFieldName capitalize="true"/>()" value="<<"/>
+							</td>
+						</tr>	
+					</table>
+				</td>	
+			</tr>
+			</XDtXField:ifIsCustomType>
+		
+			<XDtXField:ifIsCustomType condition="false">
+			<tr>
+				<td>
+					<spring:message code="<XDtXField:headerRootClassName lowerCase="true"/>.<XDtXField:headerFieldName/>"/>			
+				</td>
+				<td>
+					<select id="combo<XDtXField:headerFieldName capitalize="true"/>">
+						<c:forEach items="${<XDtXClass:className lowerCase="true"/>.<XDtXField:headerFieldName/>}" var="<XDtXField:headerFieldName/>"  >
+							<option value="${<XDtXField:headerFieldName/>}">
+								<c:out value="${<XDtXField:headerFieldName/>}"  />
+							</option>
+						</c:forEach>
+				    </select>		
+				</td>		
+			</tr>	
+				
+				
+		
+			</XDtXField:ifIsCustomType>
+		
+		
+		</XDtXField:ifIsOfType>
+		
+		
+		
+		</XDtXField:forAllHeaderFields>
+		<tr>
+			<td width="50%" class="tdtitle">
+				<input type="button" onclick="submitForm()" value="<spring:message code="submit"/>" class="groovybutton"/>
+			</td>
+			<td class="tdtitle">
+				<input class="groovybutton" id="return" type="button" value="<spring:message code="goBack"/>" 
+					onclick="$('#<XDtXClass:className lowerCase="true"/>')[0].action='${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/paginate.htm';$('#<XDtXClass:className lowerCase="true"/>')[0].submit()" />
+			</td>
+		</tr>
+	</table>
+</form:form>
+
+<XDtXField:forAllHeaderFields tagFilter="modify">
+<XDtXField:ifIsOfType type="java.util.List" condition="true">
+<XDtXField:ifIsCustomType condition="false">
+<script type="text/javascript">
+		$("#combo<XDtXField:headerFieldName capitalize="true"/>").eComboBox({
+			'allowNewElements' : false,		
+			'editableElements' : true		
+		});
+</script>
+</XDtXField:ifIsCustomType>
+</XDtXField:ifIsOfType>		
+</XDtXField:forAllHeaderFields>
+
+<table style="margin-left:auto;margin-right:auto">
+	<tr>
+		<td>
+			<a href="${pageContext.request.contextPath}"><img height="50px" src="${pageContext.request.contextPath}/images/home.gif" alt="Home"></a>
+		</td>
+	</tr>		
+</table>

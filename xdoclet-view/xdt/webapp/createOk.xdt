@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
+
+<form:form action="${pageContext.request.contextPath}/<XDtXClass:className lowerCase="true"/>/paginate.htm">
+	<table class="table">
+		<tr><td class="tdtitle">
+			<spring:message code="<XDtXClass:className lowerCase="true"/>.title.createOk"/>
+		</td></tr>
+		<tr><td class="tdtitle">
+			<input class="groovybutton" type="submit" value="<spring:message code="goBack"/>"/>
+		</td></tr>
+	</table>
+</form:form>

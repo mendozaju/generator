@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>	
+	<bean id="projectConfiguration" class="com.accenture.assets.beans.Project">
+		<property name="classes">
+			<list>
+				<ref bean="class"/>
+			</list>		
+		</property>
+	</bean>
+	<bean id="class" class="com.accenture.assets.beans.ClassElement">
+		<property name="attributes">
+			<set>
+				<ref bean="attribute"/>
+			</set>		
+		</property>
+		<property name="interfaces">
+			<set>
+				<ref bean="interface"/>
+			</set>		
+		</property>
+		<property name="extend" ref="class"/>
+	</bean>
+	<bean id="interface" class="com.accenture.assets.beans.Interface">
+		<property name="extendList">
+			<set>
+				<ref bean="interface"/>
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="attribute" class="com.accenture.assets.beans.Attribute">
+		<property name="type">
+			<bean id="type" class="com.accenture.assets.beans.Type"></bean>
+		</property>
+	</bean>	
+		
+	<bean id="temporalClassElement" class="com.accenture.assets.beans.ClassElement">
+		<property name="attributes">
+			<list>
+				<ref bean="attribute"/>
+			</list>		
+		</property>
+		<property name="interfaces">
+			<set>
+				<ref bean="interface"/>
+			</set>		
+		</property>
+		<property name="extend" ref="class"/>
+	</bean>
+		
+	
+	
+
+	
+	
+	
+	
+	<!-- <property name="locInputSources" value=""/>
+		<property name="groupId" value=""/>
+		<property name="artifactId" value=""/>
+		<property name="version" value=""/>
+	
+	<bean id="class" class="com.accenture.assets.beans.Class">
+		<property name="name" value=""/>
+	</bean> -->
+	
+	
+</beans>

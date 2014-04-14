@@ -1,0 +1,153 @@
+<html>
+
+	<head>
+	
+		<style>
+		
+			.tituloPrincipal {
+				font-family: Verdana;
+				font-size: 16px;
+				font-weight: bold;
+				color: navy;
+			}
+			
+			.opcionesMenu {
+				font-family: Verdana;
+				font-size: 12px;
+				font-weight: bold;
+				color: navy;
+			}
+			
+			.texto {
+				font-family: Verdana;
+				font-size: 12px;
+				padding-left: 10px;
+			}
+			
+			.tabla {
+				width: 90%;
+			}
+			
+		</style>
+		
+	</head>
+
+	<body>
+	
+		<p class="tituloPrincipal">
+		Interfaz de usuario - Pautas de pasos a seguir
+		</p>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Proyecto / Nuevo Proyecto
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					La opción de nuevo proyecto permite al usuario generar un proyecto desde cero. Esta opción presenta un dialogo para completar los datos de proyecto, los cuales al cerrar la ventana deberán quedar almacenados en una instancia de la clase "Proyecto" la cuál debe "vivir" y estar presente mientras se realicen modificaciones al mismo.
+					<br>
+					La idea es que este "Proyecto" se vaya alimentando con cada cambio que se realiza, a fin de que pueda luego alimentar un arbol del lado izquierdo de la ventana.
+					<br>		
+					Toda clase nueva que se agregue, también será un cambio que se guardará en este objeto. La idea es que al final se pueda guardar en un archivo XML para luego poder ser reabierto y regenerar el codigo tantas veces como sea requerido.
+				</td>
+			</tr>
+		</table>
+		
+		<br>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Proyecto / Abrir proyecto existente
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					La idea de esta funcionalidad es la de abrir un proyecto guardado previamente en un XML. La información debería quedar levantada en una variable global de instancia de "Proyecto", y continuar trabajando como en el caso anterior.
+				</td>
+			</tr>
+		</table>		
+		
+		<br>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Proyecto / Guardar Proyecto
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					Permite guardar toda la información del proyecto en un archivo XML.
+				</td>
+			</tr>
+		</table>		
+		
+		<br>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Proyecto / Cerrar proyecto
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					Cierra el proyecto actual, y deja las condiciones para comenzar con un proyecto desde cero. Antes de cerrar el proyecto, se debe preguntar al usuario si desea guardar los cambios.
+				</td>
+			</tr>
+		</table>		
+		
+		<br>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Herramientas / Información proyecto existente
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					Muestra una ventana en modo lectura (esto podría cambiar) de los datos que fueron cargados inicialmente con la opción de "Nuevo proyecto"
+				</td>
+			</tr>
+		</table>		
+		
+		<br>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Herramientas / Nueva clase de dominio
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					Presenta un panel con los campos necesarios para completar los datos de una nueva clase. Cada cambio que sea realizado aqui, se deberá presentar en el arbol del lado izquierdo.
+				</td>
+			</tr>
+		</table>		
+		
+		<br>
+		
+		<table class="tabla">
+			<tr>
+				<td class="opcionesMenu">
+					Opción: Menu / Herramientas / Generar código
+				</td>
+			</tr>
+			<tr>
+				<td class="texto">
+					En principio generaría las clases base y luego realiza la invocación al generador de código para generar la nueva aplicación.
+					<br>				
+					En un futuro podríamos hablar de no generar estas clases base, e implementa una funcionalidad que sea capaz de generar clases tomando el XML de proyecto directamente.
+				</td>
+			</tr>
+		</table>		
+
+	</body>
+
+</html>
+

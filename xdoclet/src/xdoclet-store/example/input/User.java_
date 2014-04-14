@@ -1,0 +1,45 @@
+
+/**
+ *	@create name, firstName, lastName, password
+ */
+
+public class User{
+	private String id1;
+	private String id2;
+	private String name;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private Role role;
+	private byte byteField;
+	private short shortField;
+	private int intField;
+	private long longField;
+	private float floatField;
+	private double doubleField;
+	
+	private boolean booleanField;
+	
+	private char charField;
+	
+	private Byte byte2Field;
+	
+	private Short short2Field;
+	
+	private Integer integer2Field;
+	
+	private Long long2Field;
+	
+	private Float float2Field;
+	
+	private Double double2Field;
+	
+	private Boolean boolean2Field;
+	
+	private Character char2Field;
+	
+	private java.math.BigDecimal bigDecimal2Field;
+	
+	private java.util.Date date2Field;
+	
+}

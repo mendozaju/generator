@@ -53,16 +53,23 @@ public class ReadXMLFile {
 				Element eElement = (Element) nNode;
 
 				project.setName(getTagValue("project", eElement));
+				System.out.println("Seteo el nombre del projecto:[" +project.getName() +"]");
 
 				project.setGroupId(getTagValue("groupId", eElement));
-
+				System.out.println("Seteo el grupo del projecto:[" + project.getGroupId()+"]");
+				
 				project.setArtifactId(getTagValue("artifactID", eElement));
-
+				System.out.println("Seteo el artifact del projecto:[" +project.getArtifactId()+ "]");
+				
 				project.setVersion(getTagValue("version", eElement));
-
+				System.out.println("Seteo la version del projecto:[" +project.getVersion() +"]");
+				
 				project.setTechnology(getTagValue("tecnologia", eElement));
-
+				System.out.println("Seteo la tecnologia del projecto:[" +project.getTechnology() +  "]");
+				
+				System.out.println("Seteo la clase");
 				classSN("classes", eElement, project);
+				System.out.println("Finalizo el seteo");
 
 			}
 		} catch (Exception e) {
@@ -72,27 +79,34 @@ public class ReadXMLFile {
 	}
 
 	private static void classSN(String sTag, Element eElement, Project project) {
-		NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-		for (int i = 0; i < nlList.getLength(); i++) {
-			ClassElement classE = new ClassElement();
-			Node nNode = nlList.item(i);
-			Element eElement1 = (Element) nNode;
-			classE.setName(getTagValue("className", eElement1));
 
-			// extends
-			extendsSN("classExtend", eElement1, classE);
-			// implement
-			implementSN("implements", eElement1, classE);
-			// atributos
-			//sattributesSN("attributes", eElement1, classE);
-			classE.setAttributes(attributesSN("attributes", eElement1));
+		// Se verifica si la coleccion posee elementos
+		if (eElement.getElementsByTagName(sTag).item(0) != null) {
+			NodeList nlList = eElement.getElementsByTagName(sTag).item(0)
+					.getChildNodes();
+			for (int i = 0; i < nlList.getLength(); i++) {
+				ClassElement classE = new ClassElement();
+				Node nNode = nlList.item(i);
+				Element eElement1 = (Element) nNode;
+				classE.setName(getTagValue("className", eElement1));
 
-			// atributos de atriburos
-			//attributesOfAttriburesSN("attributesOfAttribures", eElement1, classE);
-			classE.setAttributesOfAttributes(attributesOfAttriburesSN("attributesOfAttribures", eElement1));
-			
-			// packageE.addListClassElement(classE);
-			project.addClasses(classE);
+				// extends
+				extendsSN("classExtend", eElement1, classE);
+				// implement
+				implementSN("implements", eElement1, classE);
+				// atributos
+				// sattributesSN("attributes", eElement1, classE);
+				classE.setAttributes(attributesSN("attributes", eElement1));
+
+				// atributos de atriburos
+				// attributesOfAttriburesSN("attributesOfAttribures", eElement1,
+				// classE);
+				classE.setAttributesOfAttributes(attributesOfAttriburesSN(
+						"attributesOfAttribures", eElement1));
+
+				// packageE.addListClassElement(classE);
+				project.addClasses(classE);
+			}
 		}
 
 	}

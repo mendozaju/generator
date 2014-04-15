@@ -1,5 +1,6 @@
 package com.accenture.assets.ui.forms.panels;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListCellRenderer;
@@ -701,10 +703,14 @@ public class NewDomainClassPanel
 
 			attributesTable.getColumnModel().getColumn(0)
 				.setHeaderValue("Name");
+			attributesTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+			
 			attributesTable.getColumnModel().getColumn(1)
 				.setHeaderValue("Multi");
 			attributesTable.getColumnModel().getColumn(2)
 				.setHeaderValue("Type"); // NOI18N
+			attributesTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+			
 			attributesTable.getColumnModel().getColumn(2)
 				.setCellEditor(new DefaultCellEditor(typeCmbbox));
 			attributesTable.getColumnModel().getColumn(2).setResizable(true);
@@ -842,6 +848,7 @@ public class NewDomainClassPanel
 		if (attributesTableScroll == null) {
 			attributesTableScroll = new JScrollPane();
 			attributesTableScroll.getViewport().add(getAtributteTable(true));
+			attributesTableScroll.setPreferredSize(new Dimension(500,400));
 		}
 		return attributesTableScroll;
 	}
@@ -1040,6 +1047,7 @@ public class NewDomainClassPanel
 		if (atributtesTablePanel == null) {
 			atributtesTablePanel = new JPanel();
 			atributtesTablePanel.add(getAtributteTableScroll());
+			atributtesTablePanel.setPreferredSize(new Dimension(500,500));
 		}
 		return atributtesTablePanel;
 	}
@@ -1124,6 +1132,7 @@ public class NewDomainClassPanel
 			finalPanel.add(getAtributteTablePanel());
 			finalPanel.add(getRemoveAtributtesPanel());
 			finalPanel.add(getBottomButtonsPanel());
+			finalPanel.setPreferredSize(new Dimension(600,600));
 		}
 		return finalPanel;
 	}

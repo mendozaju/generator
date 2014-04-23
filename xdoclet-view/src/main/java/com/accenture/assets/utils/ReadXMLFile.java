@@ -53,23 +53,16 @@ public class ReadXMLFile {
 				Element eElement = (Element) nNode;
 
 				project.setName(getTagValue("project", eElement));
-				System.out.println("Seteo el nombre del projecto:[" +project.getName() +"]");
 
 				project.setGroupId(getTagValue("groupId", eElement));
-				System.out.println("Seteo el grupo del projecto:[" + project.getGroupId()+"]");
 				
 				project.setArtifactId(getTagValue("artifactID", eElement));
-				System.out.println("Seteo el artifact del projecto:[" +project.getArtifactId()+ "]");
 				
 				project.setVersion(getTagValue("version", eElement));
-				System.out.println("Seteo la version del projecto:[" +project.getVersion() +"]");
 				
 				project.setTechnology(getTagValue("tecnologia", eElement));
-				System.out.println("Seteo la tecnologia del projecto:[" +project.getTechnology() +  "]");
 				
-				System.out.println("Seteo la clase");
 				classSN("classes", eElement, project);
-				System.out.println("Finalizo el seteo");
 
 			}
 		} catch (Exception e) {
